@@ -16,7 +16,7 @@ public class PersonRepo {
 	public List<Person> getAll() {
 		List<Person> list = new ArrayList<>();
 		
-		list.add( new Person(1001, "Rohan ss", "Developer", true, "1999-02-01"));
+		list.add( new Person(1001, "Rohan s", "Developer", true, "1999-02-01"));
 		list.add( new Person(1002, "Tri", "Developer", true, "1999-02-01"));
 		list.add( new Person(1003, "Joshua", "Developer", true, "1999-02-01"));
 		list.add( new Person(1004, "Crig", "Developer", true, "1999-02-01"));
