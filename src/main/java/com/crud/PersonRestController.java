@@ -6,7 +6,9 @@ import com.crud.model.Person;
 import com.crud.service.IPersonService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-@RequestMapping("/person/api/v1")
-public class PersonRestController {
+public class PersonRestController extends SpringBootServletInitializer {
 
 	@Autowired
 	private IPersonService personService;
@@ -32,7 +33,7 @@ public class PersonRestController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/search/{name}")
+	@RequestMapping(path = "/search/{name}")
 	public ResponseEntity<List<Person>> search(
 			@PathVariable(name = "name", required = true) String name) {
 		List<Person> list = personService.search(name);
@@ -44,34 +45,9 @@ public class PersonRestController {
 		return "form";
 	}
 
-	@PostMapping(path = { "/add" })
-	public String add(Model model, Person p) {
-		personService.add(p);
-		return "redirect:/";
-	}
-
-	@GetMapping(path = "/delete/{id}")
-	public String delete(Model model, @PathVariable(name = "id") int id) {
-		personService.delete(id);
-		return "redirect:/";
-	}
-
-	@GetMapping(path = "/iniEdit/{id}")
-	public String iniEdit(Model model, @PathVariable(name = "name") String name) {
-		List<Person> list = personService.search(name);
-		Person obj = new Person();
-		for (Person element : list) {
-			obj = element;
-			break;
-		}
-		model.addAttribute("person", obj);
-		return "form";
-	}
-
-	@PostMapping(path = "/edit")
-	public String edit(Model model,Person p) {
-		personService.edit(p);
-		return "redirect:/";
-	}
+	
+	public static void main(String[] args) {
+        SpringApplication.run(PersonRestController.class);
+    }
 
 }
