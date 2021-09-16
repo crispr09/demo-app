@@ -12,6 +12,7 @@
 	<artifactId>demo-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo-app</name>
+	<packaging>war</packaging>
 	<description>Spring Boot Crud aws Exercise</description>
 
 	<properties>
