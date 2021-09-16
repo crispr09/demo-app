@@ -29,7 +29,7 @@ public class PersonRestController extends SpringBootServletInitializer {
 
 	@RequestMapping(path = "/people")
 	public ResponseEntity<List<Person>> people() {
-		List<Person> list = personService.listPerson();
+		List<Person> list = personService.getAll();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 

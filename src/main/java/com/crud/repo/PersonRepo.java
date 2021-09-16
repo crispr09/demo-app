@@ -13,7 +13,7 @@ public class PersonRepo {
 
 	private List<Person> list = new ArrayList<Person>();
 
-	public void getAll() {
+	public List<Person> getAll() {
 		List<Person> list = new ArrayList<>();
 		
 		list.add( new Person(1, "Rohan", "Developer", true, "1999-02-01"));
@@ -24,10 +24,7 @@ public class PersonRepo {
 		list.add( new Person(1, "Mustafa", "Developer", true, "1999-02-01"));
 		
 
-		for (Person person : list) {
-			list.add(person);
-		}
-
+		return list;
 	}
 
 	public List<Person> listPerson() {

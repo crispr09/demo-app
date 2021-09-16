@@ -7,7 +7,7 @@ import com.crud.model.Person;
 
 public interface IPersonService {
 	
-	public abstract void getAll(); 
+	public abstract List<Person> getAll(); 
 	
 	public abstract List<Person> listPerson();
 

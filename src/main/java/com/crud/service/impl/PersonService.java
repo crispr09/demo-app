@@ -16,9 +16,9 @@ public class PersonService implements IPersonService {
 	private PersonRepo personRepo;
 
 	@Override
-	public void getAll() {
+	public List<Person> getAll() {
 		// TODO Auto-generated method stub
-		personRepo.getAll();
+		return personRepo.getAll();
 
 	}
 
