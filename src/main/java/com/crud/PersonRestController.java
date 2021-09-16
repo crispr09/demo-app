@@ -1,47 +1,42 @@
-package com.crud.controller;
+package com.crud;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.crud.model.Person;
 import com.crud.service.IPersonService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
-public class PersonController {
+
+@RestController
+@SpringBootApplication
+@RequestMapping("/person/api/v1")
+public class PersonRestController {
 
 	@Autowired
 	private IPersonService personService;
 
-	@RequestMapping(path = { "/index", "/" })
-	public String listPerson(Model model, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		String listAll = (String) session.getAttribute("listAll");
-		if (listAll == null) {
-			session.setAttribute("listAll", "S");
-			personService.getAll();
-		}
-		model.addAttribute("list", personService.listPerson());
-		return "index";
+	@RequestMapping(path = "/people")
+	public ResponseEntity<List<Person>> people() {
+		List<Person> list = personService.listPerson();
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@PostMapping(path = { "/search" })
-	public String search(Model model, String name) {
+	@GetMapping(path = "/search/{name}")
+	public ResponseEntity<List<Person>> search(
+			@PathVariable(name = "name", required = true) String name) {
 		List<Person> list = personService.search(name);
-		model.addAttribute("list", list);
-		model.addAttribute("name", name);
-		return "index";
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	@GetMapping(path = { "/inAdd" })
@@ -78,4 +73,5 @@ public class PersonController {
 		personService.edit(p);
 		return "redirect:/";
 	}
+
 }
